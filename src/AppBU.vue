@@ -15,9 +15,9 @@
 
 <script>
 import Vue from 'vue';
+import VueResource from 'vue-resource'
 
-// import VueResource from 'vue-resource'
-// Vue.use(VueResource);
+Vue.use(VueResource);
 
 import HelloWorld from './components/HelloWorld.vue';
 // import {EventBus} from './services/event-bus.js';
@@ -37,19 +37,21 @@ export default {
     announce: (el) => {
       alert(el);
     },
-    // fetchData: function() {
-    //   Vue.http.get("http://jsonplaceholder.typicode.com/todos").then((response) => {
-    //       // this.posts = response;
-    //       console.log(response.data);
-    //   }, response => {
-    //       console.error(response);
-    //   });
-    // }, 
+    fetchData: function() {
+      Vue.http.get("http://jsonplaceholder.typicode.com/todos").then((response) => {
+          // this.posts = response;
+          console.log(response.data);
+      }, response => {
+          console.error(response);
+      });
+    }, 
     // addData: (data)=> {
 
     // }
   },
-  
+  mounted(){
+    // this.fetchData(); 
+  }
 }
 </script>
 
