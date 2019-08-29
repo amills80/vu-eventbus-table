@@ -2,16 +2,15 @@
   <div class="hello card">
     <div class="table-header">
       <h1>{{ msg }}</h1>
-      Filter by anything: <input v-model="search">
     </div>
-    <!-- <data-table :msg="msg" :comments="comments"></data-table> -->
-    <data-table :msg="msg" :comments="filteredComments"></data-table>
+    <data-table :msg="msg" :posts="comments"></data-table>
   </div>
 </template>
 
 <script>
 import DataTable from './DataTable.vue';
-import jQuery from 'jQuery';
+// import jQuery from 'jQuery';
+import EventBus from '@/services/event-bus.js';
 
 export default {
   name: 'HelloWorld',
@@ -28,25 +27,17 @@ export default {
     msg: String,
     posts: Object
   },  
-  computed: {
-    filteredComments: function () {
-      let self = this
-      let search = self.search.toLowerCase()
-      return self.comments.filter(function (comments) {
-        return  comments.name.toLowerCase().indexOf(search) !== -1 ||
-          comments.email.toLowerCase().indexOf(search) !== -1 ||
-          comments.body.toLowerCase().indexOf(search) !== -1
-      })
-    }
-  },
   mounted() {
     let vm = this;
-    jQuery.ajax({
-      url: 'https://jsonplaceholder.typicode.com/comments',
-      success(res) {
-        vm.comments = res;
-      }
-    });
+    vm.comments = EventBus.fetchPosts();
+    // jQuery.ajax({
+    //   url: 'data.js',
+    //   dataType: 'json',
+    //   success(res) {
+    //     console.log(res);
+    //     vm.comments = res;
+    //   }, 
+    // });
   }
 }
 </script>

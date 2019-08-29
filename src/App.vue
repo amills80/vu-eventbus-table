@@ -2,7 +2,7 @@
   <div id="app" class="container">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     
-    <button class="mx-auto" @click="fetchData">load db</button>
+    <button class="mx-auto" >load db</button>
     <!-- <button class="mx-auto" @click="addData">Create New Entry</button> -->
     <div class="row">
       <div class="mx-auto col-12">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+// import Vue from 'vue';
 
 // import VueResource from 'vue-resource'
 // Vue.use(VueResource);
@@ -33,23 +33,6 @@ export default {
       posts: {}
     }
   },
-  methods:{
-    announce: (el) => {
-      alert(el);
-    },
-    // fetchData: function() {
-    //   Vue.http.get("http://jsonplaceholder.typicode.com/todos").then((response) => {
-    //       // this.posts = response;
-    //       console.log(response.data);
-    //   }, response => {
-    //       console.error(response);
-    //   });
-    // }, 
-    // addData: (data)=> {
-
-    // }
-  },
-  
 }
 </script>
 
