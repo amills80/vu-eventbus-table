@@ -3,7 +3,7 @@
     <div class="table-header">
       <h1>{{ msg }}</h1>
     </div>
-    <data-table :msg="msg" :posts="comments"></data-table>
+    <data-table :msg="msg" :posts="posts"></data-table>
   </div>
 </template>
 
@@ -25,20 +25,8 @@ export default {
   },
   props: {
     msg: String,
-    posts: Object
+    posts: Array
   },  
-  mounted() {
-    let vm = this;
-    vm.comments = EventBus.fetchPosts();
-    // jQuery.ajax({
-    //   url: 'data.js',
-    //   dataType: 'json',
-    //   success(res) {
-    //     console.log(res);
-    //     vm.comments = res;
-    //   }, 
-    // });
-  }
 }
 </script>
 

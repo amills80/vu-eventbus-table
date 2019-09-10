@@ -10,7 +10,7 @@ Vue.use(VueResource);
 export default {
   fetchPosts() { 
     jQuery.ajax({
-      url: 'data.js',
+      url: 'data2.js',
       dataType: 'json',
       success(res) {
         console.log(res);
