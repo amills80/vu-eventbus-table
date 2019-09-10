@@ -8,12 +8,12 @@
       </thead>
       <tbody>
         <tr v-for="post in filtered" :key="post.name">
-          <td>{{post.name}}</td>
-          <td>{{post.calories}}</td>
-          <td>{{post.fat}}</td>
-          <td>{{post.carbs}}</td>
+          <td>{{post.userId}}</td>
+          <td>{{post.title}}</td>
+          <td>{{post.completed}}</td>
+          <!-- <td>{{post.carbs}}</td>
           <td>{{post.protein}}</td>
-          <td>{{post.iron}}%</td>
+          <td>{{post.iron}}%</td> -->
           <td><button class="btn-info" @click="showEditForm(post)">Edit</button></td>
           <td><button class="btn-danger" @click="showDeleteForm(post)">Remove</button></td>
         </tr>
@@ -25,7 +25,7 @@
       <div class="row mt-2">
         <div class="col-3">
           <label for="ppp-select">Posts per page</label>
-          <select class="ml-3" name="ppp-select" v-model="pageSize" >
+          <select class="ml-3" name="ppp-select" v-model="pageSize" v-on:input="currentPage = 1">
             <option selected>3</option>
             <option >5</option>
             <option >10</option>

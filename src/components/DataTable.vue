@@ -30,15 +30,22 @@ export default {
     data () {
       return {
         headers: [
-          { text: 'Dessert (100g serving)', value: 'name' },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-          { text: 'Edit', value: 'edit' },
-          { text: 'Remove', value: 'remove' },
+          {text: 'userId', value: 'userid'},
+          {text: 'title', value: 'title'},
+          {text: 'completed', value: 'completed'},
+          {text: 'Edit', value: 'edit'},
+          {text: 'Remove', value: 'remove'},
         ],
+        // headers: [
+        //   { text: 'Dessert (100g serving)', value: 'name' },
+        //   { text: 'Calories', value: 'calories' },
+        //   { text: 'Fat (g)', value: 'fat' },
+        //   { text: 'Carbs (g)', value: 'carbs' },
+        //   { text: 'Protein (g)', value: 'protein' },
+        //   { text: 'Iron (%)', value: 'iron' },
+        //   { text: 'Edit', value: 'edit' },
+        //   { text: 'Remove', value: 'remove' },
+        // ],
         showCreateModal: false,
         entry: {}, 
         search: '',
@@ -58,7 +65,8 @@ export default {
     },
     methods: {
       matchName(el) {
-        return el.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 
+        // console.log('')
+        return el.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 
       }, 
       showCreateForm() {
         this.entry = {
