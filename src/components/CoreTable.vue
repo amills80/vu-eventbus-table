@@ -18,8 +18,32 @@
           <td><button class="btn-danger" @click="showDeleteForm(post)">Remove</button></td>
         </tr>
       </tbody>
-      
     </table>
+
+    <div class="container">
+      <hr>
+      <div class="row mt-2">
+        <div class="col-3">
+          <label for="ppp-select">Posts per page</label>
+          <select class="ml-3" name="ppp-select" v-model="pageSize" >
+            <option selected>3</option>
+            <option >5</option>
+            <option >10</option>
+            <option >25</option>
+          </select>
+          <!-- <span>
+            Posts per page: {{ pageSize }}
+          </span> -->
+        </div>
+        <div class="col">
+          <button :disabled="this.currentPage==1" class="mx-2" @click="prevPage">Previous</button> 
+          <button :disabled="(this.currentPage*this.pageSize) >= this.posts.length" class="mx-2" @click="nextPage">Next</button>
+        </div>
+        <div class="col-2">
+          <span>Page {{ currentPage }} : {{ posts.length}}</span>
+        </div>
+      </div>
+    </div>
     <!-- {{currentSort}} {{currentSortDir}} -->
     <div class="modal-container">
       <modal-edit-form
@@ -40,7 +64,6 @@
 import { eventBus } from '../main';
 import ModalDeleteForm from './ModalDelete'
 import ModalEditForm from './ModalEdit'
-import { constants } from 'crypto';
 
 export default {
   name: 'CoreTable',
@@ -50,6 +73,8 @@ export default {
       showEditModal: false,
       currentSort: 'name',
       currentSortDir: 'asc',
+      currentPage:1,
+      pageSize:3,
     }
   },
   methods:{
@@ -61,9 +86,6 @@ export default {
     showDeleteForm(el) {
       this.showDeleteModal = true;
       eventBus.$emit('confirmDelete', el)
-    }, 
-    matchName(el) {
-      return el.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 
     }, 
     toggleSort(el) { 
       if(el == this.currentSort){
@@ -85,6 +107,12 @@ export default {
         if(index >= start && index < end) return true;
       });
     },
+    prevPage(){
+      if(this.currentPage > 1) this.currentPage--;
+    },
+    nextPage(){
+      if((this.currentPage*this.pageSize) < this.posts.length) this.currentPage++;
+    },
   },
   computed: {
     filtered() {
@@ -102,10 +130,13 @@ export default {
   props: {
     posts: Array, 
     headers: Array,
-    currentPage: Number,
-    pageSize: Number
     // search: String
-  },  
+  }, 
+  created() {
+    eventBus.$on('updateCurrentPage', () => {
+      this.currentPage = 1;
+    })
+  } 
 }
 </script>
 

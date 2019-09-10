@@ -1,30 +1,13 @@
 <template>
   <div class="data-tab">
     <h3>Table</h3>
-    <input v-model="search" class="" type="search" name="search" id="treat-search" placeholder="Search treats">
+    <input v-model="search" v-on:input="updatePagination" type="search" name="search" id="treat-search" placeholder="Search treats">
     <!-- <button class="mr-3 btn-info">Search</button> -->
     <button class="ml-3" @click="showCreateForm()">Add a Dessert</button>
     <core-table
       :posts="searchFiltered"
       :headers="headers"
-      :currentPage="currentPage"
-      :pageSize="pageSize"
     ></core-table>
-    <div class="container">
-      <hr>
-      <div class="row mt-2">
-        <div class="col-3">
-          <span>Posts per page: {{ pageSize }}</span>
-        </div>
-        <div class="col">
-          <button class="mx-2" @click="prevPage">Previous</button> 
-          <button class="mx-2" @click="nextPage">Next</button>
-        </div>
-        <div class="col-2">
-          <span>Page {{ currentPage }}</span>
-        </div>
-      </div>
-    </div>
     <div class="modal-container">
       <modal-create-form 
         :entry="entry"
@@ -40,6 +23,7 @@
 <script>
 import CoreTable from './CoreTable';
 import ModalCreateForm from './ModalCreate';
+import { eventBus } from '../main';
 
 export default {
     name: "DataTable",
@@ -58,8 +42,6 @@ export default {
         showCreateModal: false,
         entry: {}, 
         search: '',
-        currentPage:1,
-        pageSize:3,
       }
     },
     components: {
@@ -75,15 +57,6 @@ export default {
       }
     },
     methods: {
-      prevPage(){
-        if(this.currentPage > 1) this.currentPage--;
-      },
-      nextPage(){
-        if((this.currentPage*this.pageSize) < this.posts.length) this.currentPage++;
-      },
-      updatePagination(){
-        this.currentPage = 1;
-      },
       matchName(el) {
         return el.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 
       }, 
@@ -97,6 +70,9 @@ export default {
           iron: 0,
         }
         this.showCreateModal=true
+      },
+      updatePagination(evt) {
+        eventBus.$emit('updateCurrentPage', evt);
       }
     }
   }
