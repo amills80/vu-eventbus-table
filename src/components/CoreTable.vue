@@ -11,9 +11,6 @@
           <td>{{post.userId}}</td>
           <td>{{post.title}}</td>
           <td>{{post.completed}}</td>
-          <!-- <td>{{post.carbs}}</td>
-          <td>{{post.protein}}</td>
-          <td>{{post.iron}}%</td> -->
           <td><button class="btn-info" @click="showEditForm(post)">Edit</button></td>
           <td><button class="btn-danger" @click="showDeleteForm(post)">Remove</button></td>
         </tr>
@@ -31,16 +28,13 @@
             <option >10</option>
             <option >25</option>
           </select>
-          <!-- <span>
-            Posts per page: {{ pageSize }}
-          </span> -->
         </div>
         <div class="col">
           <button :disabled="this.currentPage==1" class="mx-2" @click="prevPage">Previous</button> 
           <button :disabled="(this.currentPage*this.pageSize) >= this.posts.length" class="mx-2" @click="nextPage">Next</button>
         </div>
         <div class="col-2">
-          <span>Page {{ currentPage }} : {{ posts.length}}</span>
+          <span>Page {{ currentPage }} : {{ Math.round(posts.length/pageSize)==0?1:Math.round(posts.length/pageSize) }}</span>
         </div>
       </div>
     </div>

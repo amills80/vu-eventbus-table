@@ -10,7 +10,7 @@
           class="modal-header"
           id="modalTitle"
         >
-          <h4>Remove a Treat?</h4>
+          <h4>Remove Task?</h4>
           <button
             type="button"
             class="btn-close"
@@ -22,7 +22,7 @@
           class="modal-body"
           id="modalDescription"
         >
-        <p class="lead">Are you sure you would like to delete {{ entry.name }}? </p>
+        <p class="lead">Are you sure you would like to delete "{{ entry.title }}"? </p>
         </section>
         <footer class="modal-footer">
           <div class="row justify-content-between">
@@ -32,7 +32,7 @@
               class="btn-danger mx-2"
               @click="submit(entry)"
             >
-              Remove Treat
+              Remove Task
             </button>
           </div>
         </footer>
@@ -50,14 +50,7 @@ export default {
   },
   data () {
     return {
-      entry: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-        iron: 0,
-      }
+      entry: { }
     }
   },
   created() {

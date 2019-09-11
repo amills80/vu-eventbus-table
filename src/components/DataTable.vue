@@ -1,9 +1,9 @@
 <template>
   <div class="data-tab">
-    <h3>Table</h3>
-    <input v-model="search" v-on:input="updatePagination" type="search" name="search" id="treat-search" placeholder="Search treats">
+    <h3>Table: {{ msg }}</h3>
+    <input v-model="search" v-on:input="updatePagination" type="search" name="search" id="treat-search" placeholder="Search Tasks">
     <!-- <button class="mr-3 btn-info">Search</button> -->
-    <button class="ml-3" @click="showCreateForm()">Add a Dessert</button>
+    <button class="ml-3" @click="showCreateForm()">Add a Task</button>
     <core-table
       :posts="searchFiltered"
       :headers="headers"
@@ -30,22 +30,12 @@ export default {
     data () {
       return {
         headers: [
-          {text: 'userId', value: 'userid'},
+          {text: 'userId', value: 'userId'},
           {text: 'title', value: 'title'},
           {text: 'completed', value: 'completed'},
           {text: 'Edit', value: 'edit'},
           {text: 'Remove', value: 'remove'},
         ],
-        // headers: [
-        //   { text: 'Dessert (100g serving)', value: 'name' },
-        //   { text: 'Calories', value: 'calories' },
-        //   { text: 'Fat (g)', value: 'fat' },
-        //   { text: 'Carbs (g)', value: 'carbs' },
-        //   { text: 'Protein (g)', value: 'protein' },
-        //   { text: 'Iron (%)', value: 'iron' },
-        //   { text: 'Edit', value: 'edit' },
-        //   { text: 'Remove', value: 'remove' },
-        // ],
         showCreateModal: false,
         entry: {}, 
         search: '',
@@ -56,7 +46,8 @@ export default {
       ModalCreateForm
     },
     props: {
-      posts: Array
+      posts: Array,
+      msg: String
     },
     computed: {
       searchFiltered() {

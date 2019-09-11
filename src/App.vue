@@ -1,12 +1,8 @@
 <template>
   <div id="app" class="container">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    
-    <!-- <button class="mx-auto" @click="addData">Create New Entry</button> -->
     <div class="row">
       <div class="mx-auto col-12">
         <data-table :msg='greeting' :posts='desserts'></data-table>
-        <!-- <span class="col-6 mx-auto"><input v-model="posts"></span> -->
       </div>
     </div>
   </div>
@@ -14,13 +10,11 @@
 
 <script>  /* eslint-disable */
 import Vue from 'vue';
-
-// import VueResource from 'vue-resource'
-// Vue.use(VueResource);
-
 import DataTable from './components/DataTable.vue';
 import { eventBus } from './main';
 import { constants } from 'crypto';
+
+// import ajaxBus from './services/ajax-bus';
 
 export default {
   name: 'app',
@@ -28,25 +22,40 @@ export default {
     DataTable
   },
   created() {
+    // this.$http.get('/data.js').then(res => {
+    //   this.posts = res.body;
+    // }, error => {
+    //   console.error(error);
+    // })
+
     eventBus.$on('createTreat', (el) => {
       // clean up data
       console.log("Add to db: ", el)
       this.desserts.push(el);
     }),
     eventBus.$on('removeTreat', (el) => {
-      var location = this.desserts.indexOf(el);
-      if (location !== -1) {
-        this.desserts.splice(location, 1);
-      }
+      console.log(el);
+
+      this.removeFromPosts(this.desserts, el);
     }),
     eventBus.$on('updateTreat', (el) => {
       // console.log('replace: ', el.originalEntry);
       // console.log('with: ', el);
     })
   },
+  methods: {
+    removeFromPosts(arr, el) {
+      var location = arr.indexOf(el);
+      if (location !== -1) {
+        arr.splice(location, 1);
+      }
+    }
+  },
   data: () => {
     return {
-      greeting: "Welcome to Your Vue.js App",
+      greeting: "Hard Coded",
+      greetingAjax: 'Vue-Resource',
+      posts: [],
       desserts: [
         {
           "userId": 1,

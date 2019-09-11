@@ -10,7 +10,7 @@
           class="modal-header"
           id="modalTitle"
         >
-          <h4>Add a Treat</h4>
+          <h4>Add a Task</h4>
           <button
             type="button"
             class="btn-close"
@@ -24,29 +24,17 @@
         >
           <div class="input-group container">
             <div class="row row-wrap">
-              <div class="col-2"><label for="inputname">Name</label></div>
+              <div class="col-2"><label for="inputname">User ID</label></div>
               <div class="col-4">
-                <input class="floatlabel" name="inputname" type="text" placeholder="Name" v-model="entry.name"/>
+                <input class="floatlabel" name="inputname" type="text" placeholder="UserId" v-model="entry.userId"/>
               </div>
-              <div class="col-2"><label for="inputcalories">Calories</label></div>
+              <div class="col-2"><label for="inputcalories">Title</label></div>
               <div class="col-4">
-                <input class="floatlabel" name="inputcalories" type="text" placeholder="Calories" v-model="entry.calories"/>
+                <input class="floatlabel" name="inputcalories" type="text" placeholder="Title" v-model="entry.title"/>
               </div>
-              <div class="col-2"><label for="inputfat">Fat (g)</label></div>
+              <div class="col-2"><label for="inputfat">Completed</label></div>
               <div class="col-4">
-                <input class="floatlabel" name="inputfat" type="text" placeholder="Fat (g)" v-model="entry.fat"/>
-              </div>
-              <div class="col-2"><label for="inputcarbs">Carb (g)</label></div>
-              <div class="col-4">
-                <input class="floatlabel" name="inputcarbs" type="text" placeholder="Carbs (g)" v-model="entry.carbs"/>
-              </div>
-              <div class="col-2"><label for="inputprotein">Protein</label></div>
-              <div class="col-4">
-                <input class="floatlabel" name="inputprotein" type="text" placeholder="Protein (g)" v-model="entry.protein"/>
-              </div>
-              <div class="col-2"><label for="inputiron">Iron (%)</label></div>
-              <div class="col-4">
-                <input class="floatlabel" name="inputiron" type="text" placeholder="Iron (%)" v-model="entry.iron"/>
+                <input type="checkbox" name="inputfat" v-model="entry.completed"/>
               </div>
             </div>
           </div>
@@ -59,7 +47,7 @@
               class="btn-green mx-2"
               @click="submit(entry)"
             >
-              Submit Treat
+              Submit Task
             </button>
           </div>
         </footer>
@@ -78,14 +66,6 @@ export default {
   },
   data () {
     return {
-      // entry: {
-      //   name: '',
-      //   calories: 0,
-      //   fat: 0,
-      //   carbs: 0,
-      //   protein: 0,
-      //   iron: 0,
-      // }
     }
   },
   methods: {
@@ -93,6 +73,7 @@ export default {
       this.$emit('close');
     },
     submit(entry) {
+      entry.id = (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
       // validate form 
       // if passes: submit
       eventBus.$emit('createTreat', entry);
@@ -123,7 +104,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 40%;
-    height: 500px;
+    height: 50%;
     top: unset;
     left: unset;
   }
